@@ -1,0 +1,59 @@
+server:
+  port: 8080
+
+spring:
+  thymeleaf:
+    cache: false
+    suffix: .html
+
+  ssl:
+    bundle:
+      jks:
+        emoji-api:
+          key:
+            alias: "emoji-api"
+            password: "keyPass"
+          keystore:
+            location: "classpath:wizzard_keystore.p12"
+            password: "storePass"
+            type: "PKCS12"
+          truststore:
+            type: "PKCS12"
+            location: "classpath:wizzard_client.p12"
+            password: "storePass"
+
+#  ssl:
+#    bundle:
+#      pem:
+#        emoji-api:
+#          keystore:
+#            certificate: "classpath:emojiclientcertlocal.pem"
+#            private-key: "classpath:client-private-key.pem"
+#            private-key-password: "password"
+#          truststore:
+#            certificate: "classpath:emojiapicertlocal.pem"
+
+
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: https
+
+emoji:
+  port: 8443
+  scheme: https
+
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: http
+
+emoji:
+  port: 8081
+  scheme: http
